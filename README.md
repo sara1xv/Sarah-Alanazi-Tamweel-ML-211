@@ -1,19 +1,22 @@
 # Tamweel — 90-Day Financing Default Risk Decision System
-## نظام Tamweel للتنبؤ بمخاطر التعثر خلال 90 يومًا
 
-**Student | المتدربة:** Sarah Alanazi  
-**Course | الدورة:** SDA-DSC-211 — Advanced Machine Learning Methods | أساليب تعلم الآلة المتقدمة  
-**Programme | البرنامج:** SDAIA Academy
+**Student:** Sarah Alanazi  
+**Course:** SDA-DSC-211 — Advanced Machine Learning Methods  
+**Program:** SDAIA Academy
 
 > Educational learner project. This repository is not an official SDAIA repository and is not intended for autonomous real-world lending decisions.
 
-## Project idea and problem | فكرة المشروع والمشكلة
+## Project Overview
 
-Tamweel is an end-to-end machine learning decision system that estimates whether a financing applicant may default within 90 days using only information available at application time. It connects predictive modelling with honest validation, a simulated cost-sensitive review policy, explainability, calibration, operational capacity and reproducible inference.
+Tamweel is an end-to-end machine learning decision system that estimates whether a financing applicant may default within 90 days using only information available at application time.
 
-## Architecture and learner journey | معمارية المشروع
+The project connects predictive modeling with leakage-aware validation, cost-sensitive decision policy, explainability, calibration, operational capacity, and reproducible inference.
 
-**Synthetic data → Leakage control → Time/group validation → OOF model comparison → Cost/capacity policy → Explainability & calibration → Final model → Challenge scoring**
+## Project Workflow
+
+**Synthetic Data → Leakage Control → Time & Customer-Aware Validation → OOF Model Comparison → Cost & Capacity Policy → Explainability & Calibration → Final Model → Challenge Scoring**
+
+The project was developed across five connected stages:
 
 1. [Day 1 — Baseline & Boosting](notebooks/01_baseline_boosting.ipynb)
 2. [Day 2 — Honest Validation & Optuna](notebooks/02_validation_tuning.ipynb)
@@ -21,87 +24,129 @@ Tamweel is an end-to-end machine learning decision system that estimates whether
 4. [Day 4 — Explainability & Calibration](notebooks/04_explain_calibrate.ipynb)
 5. [Day 5 — Final Model & Delivery](notebooks/05_final_model.ipynb)
 
-## Data | البيانات
+## Data
 
-The synthetic course dataset contains **10,000 applications**, **22 application-time predictors**, and an observed default rate of about **8%**. The target is `default_within_90d`. Challenge labels remain unavailable and are not used for training, tuning, calibration or threshold selection.
+The synthetic course dataset contains **10,000 applications**, **22 application-time predictors**, and an observed default rate of approximately **8%**.
 
-[Data contract](data/data_contract.json) · [Training data](data/tamweel_train.csv) · [Challenge data](data/tamweel_challenge.csv)
+The prediction target is `default_within_90d`. Challenge labels remain unavailable and are not used for training, tuning, calibration, or threshold selection.
 
-## Honest validation | التحقق الصادق
+[Data Contract](data/data_contract.json) · [Training Data](data/tamweel_train.csv) · [Challenge Data](data/tamweel_challenge.csv)
 
-Post-application leakage fields were removed. Model comparison uses forward time-aware validation with customer separation, and threshold selection uses honest out-of-fold predictions. Preprocessing is learned from training rows only.
+## Honest Validation
 
-![Honest validation comparison](evidence/day2/day2_validation_comparison.png)
+Post-application leakage fields were removed before model development. Model comparison uses forward time-aware validation with customer separation, while threshold selection uses honest out-of-fold predictions. Preprocessing is learned from training rows only.
 
-## Final model | النموذج النهائي
+![Honest Validation Comparison](evidence/day2/day2_validation_comparison.png)
 
-**Logistic Regression** was retained because it achieved the highest mean OOF Average Precision (**0.39166**) and no ensemble passed the documented improvement gate.
+## Final Model Selection
 
-![Final model comparison](artifacts/day5_ensemble_comparison.png)
+**Logistic Regression** was retained as the final model because it achieved the highest mean out-of-fold Average Precision (**0.39166**) and none of the tested ensemble approaches passed the documented improvement gate.
 
-| Final evidence | Result |
+![Final Model Comparison](artifacts/day5_ensemble_comparison.png)
+
+| Final Evidence | Result |
 |---|---:|
 | Mean OOF Average Precision | **0.39166** |
-| OOF rows | **2,155** |
-| Raw OOF threshold | **0.16892** |
-| OOF flagged fraction | **11.37%** |
+| OOF Evaluation Rows | **2,155** |
+| Raw OOF Threshold | **0.16892** |
+| OOF Flagged Fraction | **11.37%** |
 | Recall | **46.93%** |
 | Precision | **34.29%** |
-| Simulated decision loss | **1,111 units** |
-| Capacity constraint | **12%** |
+| Simulated Decision Loss | **1,111 units** |
+| Review Capacity | **12%** |
 
-## Decision policy | سياسة القرار
+## Decision Policy
 
-The teaching policy uses simulated loss **10 × FN + 1 × FP** with review capacity not exceeding 12%. The threshold was selected from OOF development evidence, not the challenge batch.
+The course decision policy uses simulated loss:
 
-![Cost-sensitive threshold evidence](evidence/day3/artifacts/cost_curve.png)
+**10 × False Negatives + 1 × False Positives**
 
-On the **2,500-row unlabeled challenge batch**, 330 requests exceeded the transported threshold and the frozen capacity rule retained **300**. No challenge performance metric is claimed because labels are unavailable.
+with review capacity limited to **12%**.
 
-![Challenge capacity](artifacts/day5_challenge_capacity.png)
+The threshold was selected from OOF development evidence rather than from final evaluation or challenge data.
 
-## Explainability and calibration | التفسير والمعايرة
+![Cost-Sensitive Threshold Evidence](evidence/day3/artifacts/cost_curve.png)
 
-Day 4 used permutation importance and SHAP. `bureau_score` and `dti` were the strongest global SHAP drivers in that fitted model. SHAP values are model contributions in raw log-odds, not causal explanations.
+For the final unlabeled challenge batch of **2,500 applications**, **330** requests exceeded the transported threshold. The frozen capacity policy retained the highest-risk **300 applications**, respecting the 12% capacity limit.
 
-On 1,733 Day 4 evaluation requests, sigmoid calibration improved Brier score from **0.1130 to 0.0671** and ECE from **0.1469 to 0.0225**. This evidence applies to the Day 4 model/evaluation period. Regional results are diagnostic only and are not a fairness certification.
+No challenge performance metric is reported because challenge labels are unavailable.
 
-![Regional diagnostics](artifacts/day5_policy_regions.png)
+![Challenge Capacity](artifacts/day5_challenge_capacity.png)
 
-## Required reports | التقارير المطلوبة
+## Explainability and Calibration
+
+Day 4 used permutation importance and SHAP to inspect model behavior. `bureau_score` and `dti` were the strongest global SHAP drivers in the Day 4 fitted model.
+
+SHAP values represent model contributions in raw log-odds. They do not establish causal explanations, fairness, or legal compliance.
+
+On **1,733 evaluation requests**, sigmoid calibration improved:
+
+- Brier score: **0.1130 → 0.0671**
+- Expected Calibration Error: **0.1469 → 0.0225**
+
+ROC-AUC and Average Precision remained unchanged. This calibration evidence applies to the Day 4 model and observed evaluation period.
+
+Regional results are descriptive diagnostics only and are not a fairness certification.
+
+![Regional Diagnostics](artifacts/day5_policy_regions.png)
+
+## Required Reports
 
 - [Decision Card](evidence/day3/reports/DECISION_CARD.md)
+- [Interpretability Report](reports/INTERPRETABILITY_REPORT.md)
 - [Ensemble Decision](reports/ENSEMBLE_DECISION.md)
 - [Model Card](reports/MODEL_CARD.md)
-- Interpretability Report — generated from the executed Day 4 evidence and included in the final submission version.
 
-## Environment and reproducibility | البيئة وإعادة الإنتاج
+## Environment and Reproducibility
 
-The assessed path is designed for free Google Colab CPU. Recorded environment: **Python 3.13.16**, seed **211**, `n_jobs=2`. Exact versions are in [environment.json](artifacts/environment.json), [requirements-colab.txt](requirements-colab.txt) and [constraints.txt](constraints.txt).
+The assessed workflow is designed to run on free Google Colab CPU.
 
-To reproduce:
-1. Open Days 1–5 in order in Google Colab.
-2. Use the pinned environment and included synthetic course data.
-3. Run each notebook from a clean runtime with **Run all**.
-4. Review generated artifacts and reports; do not edit metrics manually.
-5. Use [scripts/inference.py](scripts/inference.py) for the final inference interface.
-6. Compare outputs with [submission.csv](submission/submission.csv) and its [manifest](submission/submission_manifest.json).
+Recorded final environment:
 
-## Outputs | المخرجات
+- Python **3.13.16**
+- Random seed **211**
+- `n_jobs=2`
+- CPU execution
 
-[Final metrics](artifacts/final_metrics.json) · [Final policy](artifacts/final_policy.json) · [Final model](artifacts/final_model/model.json) · [Submission](submission/submission.csv) · [Presentation PDF](presentation/final_presentation.pdf) · [Technical check](artifacts/day5_project_check.json)
+Exact package versions are recorded in [environment.json](artifacts/environment.json), with pinned dependencies in [requirements-colab.txt](requirements-colab.txt) and [constraints.txt](constraints.txt).
 
-The recorded project check status is **READY_FOR_HUMAN_REVIEW**. This is technical evidence, not a grade or submission receipt.
+### Reproduction Steps
 
-## Limitations and responsible use | القيود والاستخدام المسؤول
+1. Open the notebooks from Day 1 through Day 5 in Google Colab.
+2. Use the included synthetic course data and pinned environment.
+3. Start from a clean runtime.
+4. Run each notebook using **Run all**.
+5. Review the generated artifacts and reports.
+6. Use [scripts/inference.py](scripts/inference.py) for the final inference interface.
+7. Compare generated predictions with [submission.csv](submission/submission.csv) and the [submission manifest](submission/submission_manifest.json).
 
-The project uses synthetic educational data and simplified cost/capacity assumptions. OOF evidence does not guarantee future performance. Calibration, capacity, score distributions, drift and regional diagnostics require monitoring. The system must not be used as an autonomous real-world lending decision system.
+## Project Outputs
 
-## References and disclosure | المراجع والإفصاح
+- [Final Metrics](artifacts/final_metrics.json)
+- [Final Policy](artifacts/final_policy.json)
+- [Final Model](artifacts/final_model/model.json)
+- [Model Manifest](artifacts/final_model/model_manifest.json)
+- [Submission](submission/submission.csv)
+- [Submission Manifest](submission/submission_manifest.json)
+- [Final Presentation](presentation/final_presentation.pdf)
+- [Technical Project Check](artifacts/day5_project_check.json)
+
+The recorded project check status is **READY FOR HUMAN REVIEW**. This status confirms technical readiness for review; it is not an automatic grade or submission receipt.
+
+## Limitations and Responsible Use
+
+This project uses synthetic educational data and simplified cost and capacity assumptions. Out-of-fold evidence from a limited number of forward periods does not guarantee future performance.
+
+Model performance, calibration, capacity usage, score distributions, data drift, and regional diagnostics should be monitored over time.
+
+The system is intended for education and analysis only and must not be used as an autonomous real-world lending decision system.
+
+## References and Disclosure
 
 - [SDAIA Academy on GitHub](https://github.com/SDAIAAcademy)
-- **SDA-DSC-211 — Advanced Machine Learning Methods | أساليب تعلم الآلة المتقدمة**
-- Course-provided notebooks, synthetic data and instructional scaffolding were used as the learning foundation. Learner responses, executed outputs and project decisions are documented in this repository.
-- External or AI assistance that materially affects the project should be disclosed rather than presented as independently authored evidence.
+- **SDA-DSC-211 — Advanced Machine Learning Methods**
+- Course-provided notebooks, synthetic data, and instructional scaffolding were used as the learning foundation.
+- Learner responses, executed outputs, analysis, and project decisions are documented in this repository.
+- External or AI assistance that materially affected the project should be disclosed rather than presented as independently authored execution evidence.
 
 This learner repository does not represent an official SDAIA publication.
