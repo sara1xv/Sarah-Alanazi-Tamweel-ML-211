@@ -143,10 +143,6 @@ The system is intended for education and analysis only and must not be used as a
 
 ## References and Disclosure
 
-- [SDAIA Academy on GitHub](https://github.com/SDAIAAcademy)
-- **SDA-DSC-211 — Advanced Machine Learning Methods**
-- Course-provided notebooks, synthetic data, and instructional scaffolding were used as the learning foundation.
-- Learner responses, executed outputs, analysis, and project decisions are documented in this repository.
-- External or AI assistance that materially affected the project should be disclosed rather than presented as independently authored execution evidence.
+This project was completed as part of **SDA-DSC-211 — Advanced Machine Learning Methods** at **SDAIA Academy**.
 
-This learner repository does not represent an official SDAIA publication.
+[SDAIA Academy on GitHub](https://github.com/SDAIAAcademy)
