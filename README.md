@@ -16,13 +16,13 @@ The project connects predictive modeling with leakage-aware validation, cost-sen
 
 **Synthetic Data → Leakage Control → Time & Customer-Aware Validation → OOF Model Comparison → Cost & Capacity Policy → Explainability & Calibration → Final Model → Challenge Scoring**
 
-The project was developed across five connected stages:
+The end-to-end workflow is organized into five connected project stages:
 
-1. [Day 1 — Baseline & Boosting](notebooks/01_baseline_boosting.ipynb)
-2. [Day 2 — Honest Validation & Optuna](notebooks/02_validation_tuning.ipynb)
-3. [Day 3 — Cost-Sensitive Decision](notebooks/03_cost_sensitive_decision.ipynb)
-4. [Day 4 — Explainability & Calibration](notebooks/04_explain_calibrate.ipynb)
-5. [Day 5 — Final Model & Delivery](notebooks/05_final_model.ipynb)
+1. [Baseline Modeling & Boosting](notebooks/01_baseline_boosting.ipynb)
+2. [Honest Validation & Hyperparameter Tuning](notebooks/02_validation_tuning.ipynb)
+3. [Cost-Sensitive Decision Policy](notebooks/03_cost_sensitive_decision.ipynb)
+4. [Explainability & Calibration](notebooks/04_explain_calibrate.ipynb)
+5. [Final Model, Inference & Delivery](notebooks/05_final_model.ipynb)
 
 ## Data
 
@@ -75,7 +75,7 @@ No challenge performance metric is reported because challenge labels are unavail
 
 ## Explainability and Calibration
 
-Day 4 used permutation importance and SHAP to inspect model behavior. `bureau_score` and `dti` were the strongest global SHAP drivers in the Day 4 fitted model.
+Permutation importance and SHAP were used to inspect model behavior. `bureau_score` and `dti` were the strongest global SHAP drivers in the explainability analysis.
 
 SHAP values represent model contributions in raw log-odds. They do not establish causal explanations, fairness, or legal compliance.
 
@@ -84,7 +84,7 @@ On **1,733 evaluation requests**, sigmoid calibration improved:
 - Brier score: **0.1130 → 0.0671**
 - Expected Calibration Error: **0.1469 → 0.0225**
 
-ROC-AUC and Average Precision remained unchanged. This calibration evidence applies to the Day 4 model and observed evaluation period.
+ROC-AUC and Average Precision remained unchanged. This calibration evidence applies to the evaluated model and observed evaluation period.
 
 Regional results are descriptive diagnostics only and are not a fairness certification.
 
@@ -112,7 +112,7 @@ Exact package versions are recorded in [environment.json](artifacts/environment.
 
 ### Reproduction Steps
 
-1. Open the notebooks from Day 1 through Day 5 in Google Colab.
+1. Open the project notebooks in workflow order in Google Colab.
 2. Use the included synthetic course data and pinned environment.
 3. Start from a clean runtime.
 4. Run each notebook using **Run all**.
