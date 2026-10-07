@@ -68,3 +68,11 @@ Regional behavior was reviewed as a monitoring diagnostic rather than a fairness
 ## Intended Use
 
 Developed for educational purposes as part of **SDA-DSC-211 — Advanced Machine Learning Methods at SDAIA Academy**. This project is not intended to make autonomous real-world lending decisions.
+
+---
+
+## Training Program Reference
+
+This project was completed as part of **SDA-DSC-211 — Advanced Machine Learning Methods** at **SDAIA Academy**.
+
+Training program reference: [SDAIA Academy on GitHub](https://github.com/SDAIAAcademy)
