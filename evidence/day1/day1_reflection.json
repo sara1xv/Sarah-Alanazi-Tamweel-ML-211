@@ -1,0 +1,18 @@
+{
+  "problem_statement": "Predict whether an applicant will default within 90 days using information available at application time. This is for teaching purposes only.",
+  "candidate": "Logistic Regression",
+  "notes": {
+    "evidence": "Logistic Regression had the highest ROC-AUC (0.8213) and the fastest training time (0.055 s), although XGBoost had a slightly higher Average Precision.",
+    "limitation": "The results are based on a single random split, so they do not prove that Logistic Regression is generally the best model.",
+    "next_test": "Test the models on repeated or customer-separated splits to see whether the result remains consistent."
+  },
+  "exit_answers": [
+    "Average Precision is important because defaults are uncommon, so ROC-AUC alone may not show performance on the minority positive class.",
+    "The comparison set must remain separate so it provides a fair evaluation and is not indirectly used to tune the model through early stopping."
+  ],
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null
+  }
+}

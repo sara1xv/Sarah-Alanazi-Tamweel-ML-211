@@ -1,0 +1,16 @@
+{
+  "responses": {
+    "global_local": "Globally, bureau_score and dti were the strongest features: their mean absolute SHAP values were 0.9042 and 0.5437. Locally, for request TR-009585, bureau_score (+2.27), dti (+1.20), and loan_amount_sar (+0.20) were the main positive contributions.",
+    "output_units": "SHAP values are contributions to raw log-odds, not probability points. For TR-009585, the raw score was 0.9031 while the calibrated probability was 0.4795, so the raw score should not be interpreted directly as a 90.31% default probability.",
+    "reason_limits": "The reason statements describe model contributions, not causal reasons for default. Correlated features can share signal, so feature importance should not be interpreted as independent causal effects.",
+    "calibration_evidence": "On 1,733 evaluation requests, sigmoid calibration improved Brier score from 0.1130 to 0.0671 and ECE from 0.1469 to 0.0225. ROC-AUC remained 0.7708 and Average Precision remained 0.2587.",
+    "stability": "Calibration improved Brier score in both 2024Q3 and 2024Q4. The customer-cluster bootstrap 95% interval for Brier change was -0.0542 to -0.0374, which remained below zero. This supports improvement for the observed evaluation period but does not guarantee future performance.",
+    "review_capacity": "The transported calibrated threshold was 0.1733. Risk flags were within the 12% capacity in 2024Q3 (97 flags versus capacity 100), but exceeded it in 2024Q4 (109 versus 107). Including near-threshold review cases increased candidate review to 109 and 122, exceeding capacity in both periods, so capacity review is required without retuning on evaluation data."
+  },
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null,
+    "content_quality": "requires human review"
+  }
+}

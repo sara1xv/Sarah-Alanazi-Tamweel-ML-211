@@ -1,0 +1,14 @@
+{
+  "responses": {
+    "leak_example": "days_past_due_60 is a leaked field because it becomes available after the application, not at application time.",
+    "split_reason": "The time and group split keeps training data before validation, prevents the same customer from appearing in both, and uses only labels with a complete 90-day outcome window.",
+    "observed_gap": "Leaky random AP was 0.9988 compared with 0.3110 for clean random, a gap of 0.6879. Clean random AP was 0.3110 compared with 0.3153 for honest fixed, a gap of -0.0044. These results do not prove universal superiority because they come from specific folds and time periods.",
+    "imputer_reason": "The imputer is learned only from the training data inside each fold to avoid preprocessing leakage. The inner stopping set controls when boosting stops and therefore the number of trees.",
+    "limitations": "The tuning search used only 1,935 historical rows with relatively few positive cases, and OOF predictions cover 5,039 of 10,000 rows."
+  },
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null
+  }
+}

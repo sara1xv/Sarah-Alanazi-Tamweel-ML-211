@@ -1,0 +1,19 @@
+{
+  "responses": {
+    "ensemble_reason": "I kept Logistic Regression as the final model because it achieved the highest mean OOF Average Precision of 0.39166. None of the ensemble methods passed the improvement gate, and the closest, Weighted, achieved 0.38942 with a negative lift of -0.00224.",
+    "validation_limits": "The model comparison used 2,155 OOF requests across three forward periods. This provides time-aware validation evidence, but it does not guarantee the same performance on future data or changing populations.",
+    "calibration_limits": "Calibration was fitted on a separate set of 836 requests with 78 positives. Sigmoid calibration did not improve the fit-period diagnostics: Brier increased from 0.07647 to 0.07806 and ECE increased from 0.02112 to 0.03487, so calibration should continue to be monitored.",
+    "capacity_fairness": "The OOF threshold was 0.16892 and flagged 11.37% of 2,155 requests, which was within the 12% capacity limit. Regional false-positive rates varied, with Western highest at 10.29% and Eastern lowest at 6.31%. These results are diagnostic and do not provide a fairness certification.",
+    "explanation_scope": "Model explanations describe which features influenced a prediction, but they do not establish causal reasons for default. Correlated features may share signal, so explanations should be interpreted as diagnostic evidence rather than causal conclusions.",
+    "intended_use": "The model is intended for educational financing-risk prediction using information available at application time. It should support analysis and learning and should not be used as an autonomous real-world lending decision system.",
+    "monitoring_plan": "Monitor model performance, calibration, capacity usage, score distributions, data drift and regional diagnostics over time. Review the model and decision policy if these measures change materially.",
+    "executive_summary_ar": "Logistic Regression was selected as the final model because it achieved the highest mean OOF Average Precision of 0.39166 and no ensemble provided sufficient improvement. The decision policy was selected using OOF evidence with a 12% capacity constraint. On the unlabeled challenge batch, 330 requests exceeded the threshold and the capacity rule retained 300 of 2,500 requests. Continued monitoring is required.",
+    "executive_summary_en": "Logistic Regression was selected as the final model because it achieved the highest mean OOF Average Precision of 0.39166 and no ensemble provided sufficient improvement. The decision policy was selected using OOF evidence with a 12% capacity constraint. On the unlabeled challenge batch, 330 requests exceeded the threshold and the capacity rule retained 300 of 2,500 requests. Continued monitoring of performance, calibration, capacity and regional diagnostics is required."
+  },
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null,
+    "content_quality": "requires human review"
+  }
+}
