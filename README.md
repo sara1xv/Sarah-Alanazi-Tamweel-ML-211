@@ -18,11 +18,11 @@ The project connects predictive modeling with leakage-aware validation, cost-sen
 
 The end-to-end workflow is organized into five connected project stages:
 
-1. [Baseline Modeling & Boosting](notebooks/01_baseline_boosting.ipynb)
-2. [Honest Validation & Hyperparameter Tuning](notebooks/02_validation_tuning.ipynb)
-3. [Cost-Sensitive Decision Policy](notebooks/03_cost_sensitive_decision.ipynb)
-4. [Explainability & Calibration](notebooks/04_explain_calibrate.ipynb)
-5. [Final Model, Inference & Delivery](notebooks/05_final_model.ipynb)
+1. [Baseline Modeling & Boosting](notebooks/Sarah-Alanazi-Tamweel-ML-211_01_baseline_boosting.ipynb)
+2. [Honest Validation & Hyperparameter Tuning](notebooks/Sarah-Alanazi-Tamweel-ML-211_02_validation_tuning.ipynb)
+3. [Cost-Sensitive Decision Policy](notebooks/Sarah-Alanazi-Tamweel-ML-211_03_cost_sensitive_decision.ipynb)
+4. [Explainability & Calibration](notebooks/Sarah-Alanazi-Tamweel-ML-211_04_explain_calibrate.ipynb)
+5. [Final Model, Inference & Delivery](notebooks/Sarah-Alanazi-Tamweel-ML-211_05_final_model.ipynb)
 
 ## Data
 
