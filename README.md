@@ -1,7 +1,7 @@
 # Tamweel Lite — 90-Day Financing Default Risk Decision System
 
 **Student:** Sarah Alanazi  
-**Student code:** [Enter assigned student code before submission]  
+**Student code:** 211  
 **Course:** SDA-DSC-211 — Advanced Machine Learning Methods  
 **Program:** SDAIA Academy
 
@@ -171,7 +171,7 @@ The system is intended for education and analysis only and must not be used as a
 
 ## Submission Notes
 
-The renamed student-labeled notebook copies are provided alongside the **original numbered filenames required by the simplified course submission notice**. All five numbered notebooks include prior execution results. Run the newly added official readiness and final submission checks before submitting; they are provided as course templates and are **not claimed to have been executed** in this repository. Update the student code above with the actual assigned code. The presentation and submission are available in the linked project outputs.
+The renamed student-labeled notebook copies are provided alongside the **original numbered filenames required by the simplified course submission notice**. All five numbered notebooks include prior execution results. Run the newly added official readiness and final submission checks before submitting; they are provided as course templates and are **not claimed to have been executed** in this repository. Student code: **211**. The presentation and submission are available in the linked project outputs.
 
 ## References and Disclosure
 
