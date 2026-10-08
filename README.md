@@ -1,6 +1,7 @@
-# Tamweel — 90-Day Financing Default Risk Decision System
+# Tamweel Lite — 90-Day Financing Default Risk Decision System
 
 **Student:** Sarah Alanazi  
+**Student code:** [Enter assigned student code before submission]  
 **Course:** SDA-DSC-211 — Advanced Machine Learning Methods  
 **Program:** SDAIA Academy
 
@@ -8,7 +9,7 @@
 
 ## Project Overview
 
-Tamweel is an end-to-end machine learning decision system that estimates whether a financing applicant may default within 90 days using only information available at application time.
+Tamweel Lite is an end-to-end machine learning decision system that estimates whether a financing applicant may default within 90 days using only information available at application time.
 
 The project connects predictive modeling with leakage-aware validation, cost-sensitive decision policy, explainability, calibration, operational capacity, and reproducible inference.
 
@@ -16,13 +17,16 @@ The project connects predictive modeling with leakage-aware validation, cost-sen
 
 **Synthetic Data → Leakage Control → Time & Customer-Aware Validation → OOF Model Comparison → Cost & Capacity Policy → Explainability & Calibration → Final Model → Challenge Scoring**
 
-The end-to-end workflow is organized into five connected project stages:
+The end-to-end workflow is organized into five connected project stages. The original course notebook filenames are retained for straightforward grading; student-labeled copies are also available in the same folder:
 
-1. [Baseline Modeling & Boosting](notebooks/Sarah-Alanazi-Tamweel-ML-211_01_baseline_boosting.ipynb)
-2. [Honest Validation & Hyperparameter Tuning](notebooks/Sarah-Alanazi-Tamweel-ML-211_02_validation_tuning.ipynb)
-3. [Cost-Sensitive Decision Policy](notebooks/Sarah-Alanazi-Tamweel-ML-211_03_cost_sensitive_decision.ipynb)
-4. [Explainability & Calibration](notebooks/Sarah-Alanazi-Tamweel-ML-211_04_explain_calibrate.ipynb)
-5. [Final Model, Inference & Delivery](notebooks/Sarah-Alanazi-Tamweel-ML-211_05_final_model.ipynb)
+[Readiness Check](notebooks/00_readiness_check.ipynb) · [Final Submission Self-Check](notebooks/99_final_submission_check.ipynb)
+
+
+1. [Baseline Modeling & Boosting](notebooks/01_baseline_boosting.ipynb)
+2. [Honest Validation & Hyperparameter Tuning](notebooks/02_validation_tuning.ipynb)
+3. [Cost-Sensitive Decision Policy](notebooks/03_cost_sensitive_decision.ipynb)
+4. [Explainability & Calibration](notebooks/04_explain_calibrate.ipynb)
+5. [Final Model, Inference & Delivery](notebooks/05_final_model.ipynb)
 
 ## Data
 
@@ -75,7 +79,7 @@ No challenge performance metric is reported because challenge labels are unavail
 
 ## Explainability and Calibration
 
-Permutation importance and SHAP were used to inspect model behavior. `bureau_score` and `dti` were the strongest global SHAP drivers in the explainability analysis.
+Permutation importance and SHAP were used to inspect the **experimental LightGBM model**, not the final Logistic Regression model. `bureau_score` and `dti` were the strongest global SHAP drivers in the explainability analysis.
 
 SHAP values represent model contributions in raw log-odds. They do not establish causal explanations, fairness, or legal compliance.
 
@@ -84,9 +88,33 @@ On **1,733 evaluation requests**, sigmoid calibration improved:
 - Brier score: **0.1130 → 0.0671**
 - Expected Calibration Error: **0.1469 → 0.0225**
 
-ROC-AUC and Average Precision remained unchanged. This calibration evidence applies to the evaluated model and observed evaluation period.
+ROC-AUC and Average Precision remained unchanged. These improvements apply to the **earlier LightGBM evaluation**, not the selected final Logistic Regression model. The final Logistic sigmoid calibration-fit diagnostics instead changed Brier **0.07647 → 0.07806** and ECE **0.02112 → 0.03487** on 836 reserved calibration-fit requests; this is **not an independent evaluation**.
 
 Regional results are descriptive diagnostics only and are not a fairness certification.
+
+### More Experimental Evidence
+
+**Baseline boosting — ROC and precision–recall**
+
+![Baseline ROC and PR curves](evidence/day1/day1_roc_pr.png)
+
+**Learning curves**
+
+![Baseline learning curves](evidence/day1/day1_learning_curves.png)
+
+**Forward validation fold sizes**
+
+![Forward validation fold sizes](evidence/day2/day2_fold_sizes.png)
+
+**Optuna tuning search**
+
+![Optuna optimization evidence](evidence/day2/day2_search.png)
+
+**Model calibration-fit diagnostics (final Logistic model; does not demonstrate improvement)**
+
+![Final calibration diagnostic](artifacts/day5_calibration_fit.png)
+
+Other saved plots: [model diversity](artifacts/day5_diversity.png), [regional capacity](evidence/day3/artifacts/day3_capacity_regions.png), [cost-region diagnostics](artifacts/day5_policy_regions.png), and [day 3 ROC / PR](evidence/day3/artifacts/day3_roc_pr.png).
 
 ![Regional Diagnostics](artifacts/day5_policy_regions.png)
 
@@ -112,7 +140,7 @@ Exact package versions are recorded in [environment.json](artifacts/environment.
 
 ### Reproduction Steps
 
-1. Open the project notebooks in workflow order in Google Colab.
+1. Open `00_readiness_check.ipynb`, then notebooks `01`–`05`, then `99_final_submission_check.ipynb` in Google Colab.
 2. Use the included synthetic course data and pinned environment.
 3. Start from a clean runtime.
 4. Run each notebook using **Run all**.
@@ -131,7 +159,7 @@ Exact package versions are recorded in [environment.json](artifacts/environment.
 - [Final Presentation](presentation/final_presentation.pdf)
 - [Technical Project Check](artifacts/day5_project_check.json)
 
-The recorded project check status is **READY FOR HUMAN REVIEW**. This status confirms technical readiness for review; it is not an automatic grade or submission receipt.
+The previously recorded project check status is **READY FOR HUMAN REVIEW**. This status confirms technical readiness for review; it is not an automatic grade or submission receipt.
 
 ## Limitations and Responsible Use
 
@@ -140,6 +168,10 @@ This project uses synthetic educational data and simplified cost and capacity as
 Model performance, calibration, capacity usage, score distributions, data drift, and regional diagnostics should be monitored over time.
 
 The system is intended for education and analysis only and must not be used as an autonomous real-world lending decision system.
+
+## Submission Notes
+
+The renamed student-labeled notebook copies are provided alongside the **original numbered filenames required by the simplified course submission notice**. All five numbered notebooks include prior execution results. Run the newly added official readiness and final submission checks before submitting; they are provided as course templates and are **not claimed to have been executed** in this repository. Update the student code above with the actual assigned code. The presentation and submission are available in the linked project outputs.
 
 ## References and Disclosure
 
